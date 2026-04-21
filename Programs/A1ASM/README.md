@@ -15,29 +15,24 @@ Original State:
     STRB    R3, [R7]    ; switch off LED D15
     b .
 
-Beobachtungen:
-1. Wenn ein hexwert in der Speicher Adresse [R6] gespeichert wird, geht eine LED an.
-2. Wenn ein hexwert in der Speicher Adresse [R7] gespeichert wird, geht eine LED aus.
---> macht Sinn weil [R6] ist als "GPIO data set register" kommentiert und [R7] als "GPIO clear register"
+-----------------------------------------------------------------
 
-3. die Binaer Nummern der hexwerte die in R0-R3 gesetzt werden, folgen einen bestimmten muster, in welchem die 1
-   von rechts beginnend nach links wandert. Ausserdem kann man dieses Muster direkt auf auf das LED-Muster abbilden.
+Frage: 		Wie funktioniert der Assembler code?
 
-Vermutung: 0b1111 in [R6] wuerde die LEDs D8-D11 einschalten, vielleicht wuerde 0b0000 in [6] die LEDs ausschalten.
+Beobachtungen: 	1. Wenn ein hexwert an der Speicheradresse [R6], welche als "GPIO data set register" kommentiert ist,
+		    gespeichert wird, geht eine LED an.
+		2. Wenn ein hexwert an der Speicheradresse [R7], welche als "GPIO clear register" kommentiert ist,
+		    gespeichert wird, geht eine LED aus.
+		3. Man kann eine direkte Verbindung zwischen den wert, der in [R6] oder [R7] gespeichert wird und 
+		    der LED welche an oder aus geht erkennen.
+		   -> Die LED auf dem Board entspricht der selben position, wie der position der 1 im binaer code.
 
-Test Code:
+Vermutung:	Fuer jede LED auf den Board exestiert eine Bit adresse, welche die LED anschaltet, wenn auf 1 gesetzt 
+		 und eine Bit adresse, welche die LED auschaltet, wenn auf 1 gesetzt.
+		Ausserdem sind die Bit adressen, welche LED anschalten in Register aufgeteilt, sowohl auch die Bit Adressen,
+		 welche die LED auschalten.
 
-    MOV     R4, #0x0f           ; load mask 0b1111
-    MOV     R5, #0x00		; load mask 0b0000
-
-    STRB    R4,[R6]             ; turn on LED D8-D11
-    STRB    R5,[R6]             ; turn off LED D8-D11
-    b .
-
-Ergebniss:
-0b1111 schaltet die LEDs D8-D11 an, 0b0000 schaltet die LEDs NICHT aus.
-
-Korrektur des codes:
+Test:		Wenn die Vermutung stimmt, muss folgender code die LEDs D8-D11 an- und wieder ausschalten:
 
     MOV     R4, #0x0f           ; load mask 0b1111
 
@@ -45,64 +40,82 @@ Korrektur des codes:
     STRB    R4,[R7]             ; turn off LED D8-D11
     b .
 
+Ergebniss:	Die LEDs D8-D11 wurden an- und wieder aussgeschaltet. Somit kann genannte theorie weiter geprueft
+		 und nicht verworfen werden.
 
-Frage: was ist mit "load mask" in den kommentaren gemeint? denn 0b0100 ist nicht 0x40.
---> Vermutung: "load mask" bzw. "mask" ist nur immer auf 4 bit bereiche bezogen,
-		in denen mindestens 1 bit auf 1 gestellt ist bezogen.
-		um die LEDs D12-D15 zu erreichen wird der bit bereich 4-7 benoetigt.
+Probe von	
+Ergebniss:	Folgender Code sollte die LEDs D8, D10 und D11 anschalten:
 
-Rechnung: 0x40 = 16^1*4 + 16^0*0 = 2^2*16^1 = 0100 000 -> wenn der erste bit breich
-	  D8-D11 ist und 0100 0000 D14, dann ist
-	  der zweite bit breich(4-7) D12-D15 und die Maske bezieht sich entweder auf einen bitbereich oder
-	  oder einen relevanten birbereich.
+Egebniss von
+Probe:		Die LEDs D8, D10 und D11 sind an- und ausgegangen.
 
-Test:
+-----------------------------------------------------------------
 
-    MOV     R4, #0xf0           ; load mask 0b1111
+Frage:		Wie gross sind die Register?
 
-    STRB    R4,[R6]             ; turn on LED D12-15
-    STRB    R4,[R7]             ; turn off LED D12-15
+Vermutung:	Die gegebenen Register laenge korreliert mit der LED reihen laenge D8-D23 und ist somit 16 Bit / 2 Bytes lang.
+
+Test:		Wenn die Vermutung stimmt, muss folgender Code alle LEDs von D8 bis D23 an- und auschalten:
+
+    MOV     R4, #0xffff         ; load mask
+
+    STRH    R4,[R6]             ; turn on LED
+    STRH    R4,[R7]             ; turn off LED
     b .
 
-Ergebniss: die LEDs D12-15 gehen an.
-Antwort: immernoch unklar welcher Fall mit mask gemeint ist, vielleicht auch nicht wichtig.
+Ergebniss:	Nur die LEDs D8-D15 sind an- und ausgegangen. Vermutlich sind die Register nur 8 Bits / 1 Byte lang.
 
-Frage: STRB steht fuer store byte. kann ich also nur eine byte laden und damit nur den Zustand von 8 LEDs gleichzeitig
-       aendern?
+Probe
+Ergebniss:	Folgender Code sollte keine LEDs an- oder ausschalten:
 
-Test1: 
-    MOV     R4, #0xffff         ; load mask 0b1111
+    MOV     R4, #0xff00         ; load mask
 
-    STRB    R4,[R6]             ; turn on LED D8-D23
-    STRB    R4,[R7]             ; turn off LED D8-D23
-
-Ergebniss1: nur die LEDs D8-D15 werden veraendert.
-
-Test2:
-    MOV     R3, #0x00ff
-    MOV     R4, #0xff00         ; load mask 0b1111
-
-    STEB    R3,[R6]             ; turn on LED D8-D15
-    STRB    R4,[R6]             ; turn on LED D16-D23
-    STRB    R3,[R7]             ; turn off LED D8-D15
-    STRB    R4,[R7]             ; turn off LED D16-D23
-
-Ergebniss2: es werden wieder nur die LEDs D8-D15 veraendert.
-Antwort: Mit STRB ist nur der zustand von 8 LEDs aenderbar und zwar die ersten 8.
-
-
-Frage: wie erreiche ich die LEDs D16-D23?
-
-Vermutung: Falls das gegebene GPIO data set register fuer mehr als diese 8 LEDs "zustaendig" ist, muss ein befehl genommen werden,
-	   der mindestens 2bytes in [R6] uebermitteln kann. Falls das GPIO data set register nur fuer diese 8 LEDs zustaendig ist,
-	   muss ein weiters GPIO data set register definiert werden.
-
-Test:
-    MOV     R3, #0xffff
-
-    STRH     R3,[R6]
-    STRH     R3,[R7]             ; turn off LED D8-D23
+    STRH    R4,[R6]             ; turn on LED
+    STRH    R4,[R7]             ; turn off LED
     b .
 
-Ergebniss: Nur die LEDs D8-D15 werden an und aus geschaltet.
-Antwort: Die LEDs D15-23 liegen nicht im 2ten byte des GPIO data register. Ich vermute es ein anderes Register benoetigt.
+Ergebniss
+Probe:		Keine LEDs sind angegangen.
+
+-----------------------------------------------------------------
+
+Frage:		Wo ist das Register, um die LEDs D16-D23 zu erreichen?
+
+Vermutung:	Das Register, um die LEDs D16-D23 zu erreichen liegt im Bereich nach dem clear Register der LEDs D8-D15
+
+Test:		Wenn die Vermutung stimmt, sollte folgender Code LEDs aus der LED reihe D16-D23  anschalten:
+
+PERIPH_BASE         equ 0x40000000
+AHB1PERIPH_BASE     equ (PERIPH_BASE + 0x00020000)
+GPIOD_BASE          equ (AHB1PERIPH_BASE + 0x0C00)
+    
+GPIO_D_SET          equ (GPIOD_BASE + 0x18)
+GPIO_D_CLR          equ (GPIOD_BASE + 0x1A)
+test_SET            equ (GPIO_D_CLR + 0x01)
+
+;* We need minimal memory setup of InRootSection placed in Code Section
+    AREA  |.text|, CODE, READONLY, ALIGN = 3
+    ALIGN
+main
+    BL initITSboard             ; needed by the board to setup
+    nop                         ; no operation
+    LDR     R6, =GPIO_D_SET     ; get address of the GPIO data set register
+    LDR     R7, =GPIO_D_CLR     ; get address of the GPIO data clear register
+    LDR     R8, =test_SET       ; test
+    MOV     R4, #0xff           ; load mask
+
+    STRH    R4,[R8]             ; turn on LED
+    b .
+
+    ALIGN
+    END
+
+Ergebniss:	Keine LEDs sind angegangen, das Register liegt wahrscheinlich woanders.
+
+Folge
+Vermutung:	Das Register um die LEDs anzuschalten ist 16-32 Bits vor dem GPIOD_SET Register.
+
+Test:		Wenn die Vermutung stimmt, sollte folgender code LEDs aus der LED Reihe D16-D23 anschalten:
+
+....		Nach mehreren Versuchen ein Register um dem GPIOD_BASE Register zu finde, konnte ich keins finden,
+		 dass die LEDs beeinflusst.
