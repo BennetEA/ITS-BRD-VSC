@@ -1,5 +1,5 @@
 ;definiere DATEN abschnitt
-;speicher       erstelle variable "speicher" mit 100 1 byte Elementen
+;speicher       erstelle variable "speicher" mit 1000 1 byte Elementen
 ;primzahlen     erstelle variable "primzahlen" mit 1 2 byte Element    
 
 ;definiere CODE abschnitt
