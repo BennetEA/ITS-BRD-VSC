@@ -8,10 +8,10 @@
 ;               setzte R1 als pointer für "speicher"
 ;               setze den ersten byte an "speicher" = 0xFF
 
-;FOR-01         laden wert 4 in R3
+;FOR-01         lade wert 4 in R3
 ;DO-01          StrB 0xFF an [R1, R3]
 ;               erhöhe R3 um 2
-;UNTIL-01       wenn R3 > 1000 springe zu DO-01
+;UNTIL-01       wenn R3 <= 1000 springe zu DO-01
 
 ;FOR-02         lade den wert 3 in R2
 ;UNTIL-02       lade den wert R2*R2 in R3
