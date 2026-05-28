@@ -47,9 +47,9 @@ main            PROC
                 ldr   r0,=VariableA                 ; Anw-04
 ; lädt die ersten 2 bytes, an der Speicheradresse, in r0, in r1
                 ldrh  r1,[r0]                       ; Anw-05
-; lädt die ersten 2 bytes, an der Speicheradresse, in r0, in r2
+; lädt alle 4 bytes, an der Speicheradresse, in r0, in r2
                 ldr   r2,[r0]                       ; Anw-06
-; lädt die ersten 2 bytes, an der Speicheradresse, in r0+Speicheradresse von VariableC-Speicheradresse von VariableA, in r2
+; lädt die ersten 2 bytes, an der Speicheradresse, in r0 +Speicheradresse von VariableC-Speicheradresse von VariableA, in r2
                 str   r2,[r0,#VariableC-VariableA]  ; Anw-07
 
 ; Zugriff auf Felder (Speicherzellen)

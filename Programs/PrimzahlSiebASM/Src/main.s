@@ -1,39 +1,53 @@
-;definiere DATEN abschnitt
-;speicher       erstelle variable "speicher" mit 1000 1 byte Elementen
-;primzahlen     erstelle variable "primzahlen" mit 1 2 byte Element    
+                AREA MyData, DATA, align = 2
+Speicher        FILL    1002,0
+Primzahlen      FILL    336,0
 
-;definiere CODE abschnitt
+                AREA |.text|, CODE, READONLY, ALIGN = 3
+                EXPORT main
+                EXTERN initITSboard
+main            PROC
 
-;****************SIEB****************
-;               setzte R1 als pointer für "speicher"
-;               setze den ersten byte an "speicher" = 0xFF
+                LDR     R0,=Speicher                        ;erstelle pointer
+                MOV     R1,#0xFF                            ;erstelle nicht Primzahl Markierung
+                STRB    R1,[R0]                             ;markiere Element 0 nicht Primzahl 
+                STRB    R1,[R0,#1]                          ;markiere Element 1 nicht Primzahl
+FOR_GERADE      MOV     R3,#4                               ;setze Start-Index für gerade Zahlen loop
+DO_GERADE       STRB    R1,[R0,R3]                          ;markiere Index Element nicht Primzahl
+STEP_GERADE     ADD     R3,#2                               ;erhöhe Index
+UNTIL_GERADE    CMP     R3,#1000                            ;prüfe ob Index im vorgegebenen Bereich ist
+                BLS     DO_GERADE
+END_GERADE
+FOR_UNGERADE    MOV     R2,#3                               ;setze Start-Index für ungerade Zahlen loop
+UNTIL_UNGERADE  MUL     R3,R2,R2                            ;setze Index für Vielfache
+                CMP     R3,#1000                            ;prüfe ob Index im vorgegebenen Bereich ist
+                BHI     END_UNGERADE
 
-;FOR-01         lade wert 4 in R3
-;DO-01          StrB 0xFF an [R1, R3]
-;               erhöhe R3 um 2
-;UNTIL-01       wenn R3 <= 1000 springe zu DO-01
+DO_UNGERADE     LDRB    R4,[R0,R3]                          ;lade Element des Vielfachen Index
+IF_STEP         CMP     R4,#0xFF                            ;prüfe ob Vielfaches bereits als nicht Primzahl markiert ist 
+                BEQ     THEN_STEP
 
-;FOR-02         lade den wert 3 in R2
-;UNTIL-02       lade den wert R2*R2 in R3
-;               wenn R3 > 1000 springe zu ENDFOR-02
-;DO-02          lade Byte [speicher, R3] in R4
+WHILE           STRB    R1,[R0,R3]                          ;streiche Vielfache
+                ADD     R3,R3,R2                            ;erhöhe Vielfaches
+                CMP     R3,#1000                            ;prüfe ob Vielfaches im vorgegebenen Bereich ist
+                BLS     WHILE
 
-;IF-01          wenn R4 == 0xFF springe zu THEN-01
-;ELSE-WHILE     lade 0xFF in [speicher, R3]
-;               erhöhe R3 um R2
-;               wenn R3 <= 1000 springe zu ELSE-WHILE
+THEN_STEP       ADD     R2,#2                               ;erhöhe Index
+                b       UNTIL_UNGERADE
+END_UNGERADE
 
-;Then-01        erhöhe R2 um 2
-;               springe zu UNTIL-02
-;ENDFOR-02
+Abspeichern
+                LDR     R2,=Primzahlen                      ;erstelle pointer
+FOR_AS          MOV     R3,#0                               ;setze Primzahl-Index
+DO_AS           LDRB    R4,[R0,R3]                          ;lade Primzahl-Markierung aus dem speicher
 
-;*************Abspeichern*************
-;               setze R2 als pointer für "primzahlen"
-;FOR-03         lade wert 0 in R3
-;DO-03          lade byte [R1,R3] in R4
+IF_AS           CMP     R4,#0xFF                            ;prüfe Primzahl-Markierung
+                BEQ     THEN_AS
+                STRH    R3,[R2],#2                          ;speicher Primzahl
 
-;IF-02          wenn R4 == 0xFF springe zu THEN-02
-;               lade HalbWort R3,#1 in [R2],#2
+THEN_AS         ADD     R3,#1                               ;erhöhe Primzahl-Index
+UNTIL_AS        CMP     R3,#1000                            ;prüfe ob Index im vorgegebenen Bereich ist
+                BLS     DO_AS
 
-;Then-02        erhöhe R3 um 1
-;UNTIL-03       wenn R3 <= 1000 springe zu DO-03
+                b       .
+                ENDP
+                END

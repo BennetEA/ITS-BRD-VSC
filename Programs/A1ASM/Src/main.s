@@ -20,7 +20,6 @@ GPIOD_BASE          equ (AHB1PERIPH_BASE + 0x0C00)
     
 GPIO_D_SET          equ (GPIOD_BASE + 0x18)
 GPIO_D_CLR          equ (GPIOD_BASE + 0x1A)
-test_SET            equ (GPIOD_BASE )
 
 ;* We need minimal memory setup of InRootSection placed in Code Section
     AREA  |.text|, CODE, READONLY, ALIGN = 3
@@ -30,10 +29,10 @@ main
     nop                         ; no operation
     LDR     R6, =GPIO_D_SET     ; get address of the GPIO data set register
     LDR     R7, =GPIO_D_CLR     ; get address of the GPIO data clear register
-    LDR     R8, =test_SET       ; test
-    MOV     R4, #0xff           ; load mask
+    MOV     R4, #0x03           ; load mask 0b1111
 
-    STRH    R4,[R8]             ; turn on LED
+    STRB    R4,[R6]             ; turn on LED D8-D11
+    STRB    R4,[R7]             ; turn off LED D8-D11
     b .
 
     ALIGN
