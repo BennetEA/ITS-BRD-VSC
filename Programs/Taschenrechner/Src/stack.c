@@ -32,4 +32,6 @@ int get(int index, int *val) {
    return 1;
 }
 
+int get_pointer(void) { return pointer; }
+
 int clear(void) { pointer = 0; }

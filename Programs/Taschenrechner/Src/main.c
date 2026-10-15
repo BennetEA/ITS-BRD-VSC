@@ -14,7 +14,6 @@
 #include "keypad.h"
 #include "lcd.h"
 #include "scanner.h"
-#include "stack.h"
 #include "stm32f4xx_hal.h"
 #include "test.h"
 
