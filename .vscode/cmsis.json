@@ -1,11 +1,5 @@
 {
     "targetSet": {
-<<<<<<< HEAD
-        "Programs/StoppuhrASM/StoppuhrASM": {
-            "activeTargetType": "ITSboard_Assembly"
-        },
-=======
->>>>>>> 8a044ac2a2122f02d7281e3c65789f111ae71454
         "Programs/Taschenrechner/Taschenrechner": {
             "activeTargetType": "ITSboard"
         }
