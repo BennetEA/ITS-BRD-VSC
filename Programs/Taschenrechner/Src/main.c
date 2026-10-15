@@ -15,6 +15,7 @@
 #include "lcd.h"
 #include "scanner.h"
 #include "stm32f4xx_hal.h"
+#include "test.h"
 
 int main(void) {
    initITSboard(); // Initialisierung des ITS Boards
@@ -24,6 +25,7 @@ int main(void) {
 
    // Begruessungstext
    lcdPrintlnS("Hallo liebes TI-Labor (c-project)");
+   test_stack();
 
    // Test in Endlosschleife
    const int POLL_DELAY = 10000;
