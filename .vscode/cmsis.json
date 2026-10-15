@@ -1,0 +1,12 @@
+{
+    "targetSet": {
+        "Programs/StoppuhrASM/StoppuhrASM": {
+            "activeTargetType": "ITSboard_Assembly"
+        },
+        "Programs/Taschenrechner/Taschenrechner": {
+            "activeTargetType": "ITSboard"
+        }
+    },
+    "activeSolution": "../Programs/Taschenrechner/Taschenrechner.csolution.yml",
+    "activeTarget": "ITSboard"
+}
