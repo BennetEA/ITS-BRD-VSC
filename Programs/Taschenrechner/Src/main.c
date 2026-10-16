@@ -21,17 +21,16 @@
 #include "token.h"
 
 int main(void) {
-   initITSboard(); // Initialisierung des ITS Boards
-
+   initITSboard();               // Initialisierung des ITS Boards
    GUI_init(DEFAULT_BRIGHTNESS); // Initialisierung des LCD Boards mit Touch
    TP_Init(false);               // Initialisierung des LCD Boards mit Touch
 
-   genTerm();
-   // makeKeyPad();
-   // const int POLL_DELAY = 10000;
-   // while (1) {
-   //    HAL_Delay(POLL_DELAY);
-   // }
+   const int POLL_DELAY = 10000;
+   while (1) {
+      HAL_Delay(POLL_DELAY);
+   }
 }
 
-// EOF
+void calc(Token_t token)
+
+    // EOF

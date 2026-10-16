@@ -185,6 +185,7 @@ project:
         - file: Src/funktionen.c
         - file: Src/display.c
         - file: Src/scanner.c
+        - file: Src/error.h
       
 
 
