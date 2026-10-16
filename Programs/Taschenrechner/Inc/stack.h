@@ -7,9 +7,10 @@
  * - increment before
  * - decrement after
  */
-int push(int val);            // legt val auf dem Stack ab
-int pop(int *val);            // gibt das oberste Element des Stacks zurück
-int get(int index, int *val); // gibt das element am index zurück
-int clear(void);              // setzt den stackpointer zurück
-int get_pointer(void);        // gibt den aktuellen stackpointer zurück
-#endif                        // !STACH_H
+int push(int val); // legt val auf dem Stack ab
+int pop(int *val); // gibt das oberste Element des Stacks zurück
+int get_element(int index, int *val); // gibt das element am index zurück
+void clear(void);                     // setzt den stackpointer zurück
+int get_pointer(void);                // gibt den aktuellen stackpointer zurück
+int *stack_addr(void);
+#endif // !STACH_H
