@@ -9,7 +9,7 @@ int add(void) {
       return -1;
    }
    push(a + b);
-   return 1;
+   return 0;
 }
 
 int sub(void) {
@@ -20,7 +20,7 @@ int sub(void) {
       return -1;
    }
    push(b - a);
-   return 1;
+   return 0;
 }
 
 int mul(void) {
@@ -31,7 +31,7 @@ int mul(void) {
       return -1;
    }
    push(a * b);
-   return 1;
+   return 0;
 }
 
 int div(void) {
@@ -41,49 +41,56 @@ int div(void) {
       lcdPrintlnS("Underflow");
       return -1;
    }
-   push(a / b);
-   return 1;
+   push(b / a);
+   return 0;
 }
 
 int p(void) {
    int a;
-   return get(get_pointer(), &a);
+   if (get_element(get_pointer(), &a) == -1) {
+      return -1;
+   }
+   lcdPrintInt(a);
+   return 0;
 }
 
 int P(void) {
+   int i = get_pointer();
+   if (i < 3) {
+      return -1;
+   }
    int a;
    int b;
    int c;
-   int i = get_pointer();
-   if (i < 3) {
-      lcdPrintlnS("underflow");
-      return -1;
-   }
-   get(i--, &a);
-   get(i--, &b);
-   get(i, &c);
-   return 1;
+   get_element(i--, &a);
+   get_element(i--, &b);
+   get_element(i, &c);
+   lcdPrintInt(a);
+   lcdPrintC(' ');
+   lcdPrintInt(b);
+   lcdPrintC(' ');
+   lcdPrintInt(c);
+   return 0;
 }
 
 void C(void) { clear(); }
 
 int d(void) {
    int a;
-   if (get(get_pointer(), &a) == -1) {
+   if (get_element(get_pointer(), &a) == -1) {
       return -1;
    }
    push(a);
-   return 1;
+   return 0;
 }
 
 int r(void) {
    int a;
    int b;
    if (pop(&a) == -1 || pop(&b) == -1) {
-      lcdPrintlnS("underflow");
       return -1;
    }
    push(b);
    push(a);
-   return 1;
+   return 0;
 }

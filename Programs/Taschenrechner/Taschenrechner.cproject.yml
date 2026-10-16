@@ -183,6 +183,9 @@ project:
         - file: Src/test.c 
         - file: Src/stack.c
         - file: Src/funktionen.c
+        - file: Src/display.c
+        - file: Src/scanner.c
+      
 
 
   components:
