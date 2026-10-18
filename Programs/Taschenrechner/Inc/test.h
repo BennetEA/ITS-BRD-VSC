@@ -1,5 +1,8 @@
-#ifndef TEST_H
-#define TEST_H
-void test_funktionen();
-void test_stack();
-#endif // !test.h
+#ifndef TEST_U
+#define TEST_U
+
+void test_stack(void);
+void test_functions(void);
+
+#endif // !TEST_U
+#define TEST_U

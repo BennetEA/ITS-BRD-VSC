@@ -180,12 +180,12 @@ project:
     - group: Program/User/Src
       files:
         - file: Src/main.c
-        - file: Src/test.c 
         - file: Src/stack.c
-        - file: Src/funktionen.c
+        - file: Src/function.c
         - file: Src/display.c
         - file: Src/scanner.c
-        - file: Src/error.h
+        - file: Src/exception.c
+        - file: Src/test.c
       
 
 
