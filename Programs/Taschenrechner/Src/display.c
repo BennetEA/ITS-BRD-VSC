@@ -41,6 +41,23 @@ void init_display(void) {
    clear_stdout();
 }
 
+Terminal init_display_term(void) {
+   GUI_init(DEFAULT_BRIGHTNESS); // Initialisierung des LCD Boards mit Touch
+   TP_Init(false);               // Initialisierung des LCD Boards mit Touch
+   Terminal term = makeKeyPad();
+   // Replace terminal by two terminals. One for standard output and
+   // one to echo entered digits.
+   Coordinate cor = term.bottomRight;
+   cor.y = cor.y - term.font->Height - 1;
+   stdout_term =
+       genTerm(term.topLeft, cor, term.bgColor, term.fgColor, term.font);
+   cor = term.topLeft;
+   cor.y = term.bottomRight.y - term.font->Height;
+   echo_term = genTerm(cor, term.bottomRight, BLUE, YELLOW, term.font);
+   clear_echo_term();
+   clear_stdout();
+   return term;
+}
 void print_to_echo_line(char chr) {
    char buf[2] = {'\0', '\0'};
    buf[0] = chr;

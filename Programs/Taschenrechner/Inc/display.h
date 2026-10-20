@@ -7,6 +7,7 @@
 
 #ifndef DISPLAY_H
 #define DISPLAY_H
+#include "terminal.h"
 #include <stdbool.h>
 
 /*
@@ -16,6 +17,7 @@
  *  @return     void
  ****************************************************************************************/
 void init_display(void);
+Terminal init_display_term(void);
 
 /*
  ****************************************************************************************

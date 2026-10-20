@@ -11,7 +11,7 @@ cmsis-tools-environment:
       - /home/bennet/.vcpkg/artifacts/2139c4c6/compilers.arm.armclang/6.24.0/bin
       - /home/bennet/.vcpkg/artifacts/2139c4c6/compilers.arm.arm.none.eabi.gcc/13.3.1/bin
       - /home/bennet/.vcpkg/artifacts/2139c4c6/compilers.arm.llvm.embedded/17.0.1/bin
-      - /home/bennet/.vcpkg/artifacts/2139c4c6/debuggers.arm.armdbg/6.9.0/bin
+      - /home/bennet/.vcpkg/artifacts/2139c4c6/debuggers.arm.armdbg/6.11.0/bin
       - /home/bennet/.vscode-oss/extensions/arm.vscode-cmsis-debugger-1.8.0-linux-x64/tools/gdb/bin
     variables:
       cmake: /home/bennet/.vcpkg/artifacts/2139c4c6/tools.kitware.cmake/3.28.4/bin/cmake
@@ -74,12 +74,12 @@ cmsis-tools-environment:
         id: arm.environment-manager
       directory: /home/bennet/.vcpkg/artifacts/2139c4c6/compilers.arm.llvm.embedded/17.0.1
     - name: debuggers.arm.armdbg
-      version: 6.9.0
+      version: 6.11.0
       origin: installed
       provider:
         type: vcpkg
         id: arm.environment-manager
-      directory: /home/bennet/.vcpkg/artifacts/2139c4c6/debuggers.arm.armdbg/6.9.0
+      directory: /home/bennet/.vcpkg/artifacts/2139c4c6/debuggers.arm.armdbg/6.11.0
     - name: Arm GNU GDB
       version: 15.2.1
       origin: built-in

@@ -1,8 +1,8 @@
 /**
  ******************************************************************************
  * @file    main.c
- * @author  Franz Korf
- * @brief   Kleines Testprogramm fuer neu erstelle Fonts.
+ * @author  Franz Korf, Bennet Stahmleder, Leon Voss
+ * @brief   main Programm für Taschenrechner in umgekehrter polnischer Notation.
  ******************************************************************************
  */
 /* Includes ------------------------------------------------------------------*/
@@ -27,64 +27,70 @@ static T_token token;
 
 Terminal overlay;
 
-int test_main(void) {
-   initITSboard();               // Initialisierung des ITS Boards
-   GUI_init(DEFAULT_BRIGHTNESS); // Initialisierung des LCD Boards mit Touch
-   test_stack();
-}
 int main(void) {
-   initITSboard();               // Initialisierung des ITS Boards
-   GUI_init(DEFAULT_BRIGHTNESS); // Initialisierung des LCD Boards mit Touch
-   init_display();
-   TP_Init(false); // Initialisierung des LCD Boards mit Touch
-   const int POLL_DELAY = 100;
-
-   overlay = makeKeyPad();
-   setTextColorTerm(RED, &overlay);
+   initITSboard(); // Initialisierung des ITS Boards
+   overlay = init_display_term();
+   setTextColorTerm(BLACK, &overlay);
    while (1) {
       token = next_token();
-      if (error) {
+      if (is_bottom_line()) {
          clearTerm(&overlay);
       }
       switch (token.tok) {
       case NUMBER:
          if (error = push(token.val)) {
+            setTextColorTerm(RED, &overlay);
             printTerm(exception_to_string(error), &overlay);
+            setTextColorTerm(BLACK, &overlay);
          }
          break;
       case PLUS:
          if (error = add()) {
+            setTextColorTerm(RED, &overlay);
             printTerm(exception_to_string(error), &overlay);
+            setTextColorTerm(BLACK, &overlay);
          }
          break;
       case MINUS:
          if (error = sub()) {
+            setTextColorTerm(RED, &overlay);
             printTerm(exception_to_string(error), &overlay);
+            setTextColorTerm(BLACK, &overlay);
          }
          break;
       case MULT:
          if (error = mul()) {
+            setTextColorTerm(RED, &overlay);
             printTerm(exception_to_string(error), &overlay);
+            setTextColorTerm(BLACK, &overlay);
          }
          break;
       case DIV:
          if (error = div()) {
+            setTextColorTerm(RED, &overlay);
             printTerm(exception_to_string(error), &overlay);
+            setTextColorTerm(BLACK, &overlay);
          }
          break;
       case PRT:
-         if (error = display_last(overlay)) {
+         if (error = display_last(&overlay)) {
+            setTextColorTerm(RED, &overlay);
             printTerm(exception_to_string(error), &overlay);
+            setTextColorTerm(BLACK, &overlay);
          }
          break;
       case SWAP:
          if (error = swap_last2()) {
+            setTextColorTerm(RED, &overlay);
             printTerm(exception_to_string(error), &overlay);
+            setTextColorTerm(BLACK, &overlay);
          }
          break;
       case PRT_ALL:
-         if (error = display_last3(overlay)) {
+         if (error = display_last3(&overlay)) {
+            setTextColorTerm(RED, &overlay);
             printTerm(exception_to_string(error), &overlay);
+            setTextColorTerm(BLACK, &overlay);
          }
          break;
       case CLEAR:
@@ -93,7 +99,9 @@ int main(void) {
          break;
       case DOUBLE:
          if (error = dupe_last()) {
+            setTextColorTerm(RED, &overlay);
             printTerm(exception_to_string(error), &overlay);
+            setTextColorTerm(BLACK, &overlay);
          }
          break;
       case ENTER:
@@ -106,7 +114,6 @@ int main(void) {
          continue;
          break;
       }
-      // HAL_Delay(POLL_DELAY);
    }
 }
 
