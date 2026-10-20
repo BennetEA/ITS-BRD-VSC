@@ -9,4 +9,3 @@ int get_pointer();
 void clear_stack();
 
 #endif // !STACK_U
-#define STACK_U

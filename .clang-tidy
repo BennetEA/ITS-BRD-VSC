@@ -7,7 +7,7 @@ Checks: >
   bugprone-*,
   clang-analyzer-*,
   misc-*,
-  readability-identifier-naming,
+  -readability-identifier-length,
   -bugprone-reserved-identifier,
   -misc-include-cleaner,
   -readability-implicit-bool-conversion,

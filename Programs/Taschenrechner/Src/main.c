@@ -25,6 +25,8 @@
 static int error;
 static T_token token;
 
+Terminal overlay;
+
 int test_main(void) {
    initITSboard();               // Initialisierung des ITS Boards
    GUI_init(DEFAULT_BRIGHTNESS); // Initialisierung des LCD Boards mit Touch
@@ -37,9 +39,13 @@ int main(void) {
    TP_Init(false); // Initialisierung des LCD Boards mit Touch
    const int POLL_DELAY = 100;
 
-   Terminal overlay = makeKeyPad();
+   overlay = makeKeyPad();
+   setTextColorTerm(RED, &overlay);
    while (1) {
       token = next_token();
+      if (error) {
+         clearTerm(&overlay);
+      }
       switch (token.tok) {
       case NUMBER:
          if (error = push(token.val)) {
@@ -82,7 +88,8 @@ int main(void) {
          }
          break;
       case CLEAR:
-         clear(overlay);
+         clearTerm(&overlay);
+         clear_stack();
          break;
       case DOUBLE:
          if (error = dupe_last()) {

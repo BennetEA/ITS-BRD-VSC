@@ -12,7 +12,6 @@ Exception div();
 // aktionen
 Exception display_last(Terminal terminal);
 Exception display_last3(Terminal terminal);
-void clear(Terminal terminal);
 Exception dupe_last();
 Exception swap_last2();
 
