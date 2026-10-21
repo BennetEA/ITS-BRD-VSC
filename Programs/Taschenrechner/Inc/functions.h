@@ -18,29 +18,29 @@
 
 /**
  * @brief           Diese Funktion entnimmt dem Stack die letzten beiden
- *                  Integers und legt dessen Summe wieder auf den Stack. Bei
- * Fehlschlag wird der Stack nicht veränder.
+ *                  Integers und legt dessen Summe wieder auf den Stack.
+ *                  Bei Fehlschlag wird der Stack nicht veränder.
  * @retval          Statuscode der Funktion.
  */
 Exception add();
 /**
  * @brief           Diese Funktion entnimmt dem Stack die letzten beiden
  *                  Integers und legt dessen Differnzwert wieder auf den Stack.
- * Bei Fehlschlag wird der Stack nicht veränder.
+ *                  Bei Fehlschlag wird der Stack nicht veränder.
  * @retval          Statuscode der Funktion.
  */
 Exception sub();
 /**
  * @brief           Diese Funktion entnimmt dem Stack die letzten beiden
- *                  Integers und legt dessen Produkt wieder auf den Stack. Bei
- * Fehlschlag wird der Stack nicht veränder.
+ *                  Integers und legt dessen Produkt wieder auf den Stack.
+ *                  Bei Fehlschlag wird der Stack nicht veränder.
  * @retval          Statuscode der Funktion.
  */
 Exception mul();
 /**
  * @brief           Diese Funktion entnimmt dem Stack die letzten beiden
- *                  Integers und legt dessen Quotient wieder auf den Stack. Bei
- * Fehlschlag wird der Stack nicht veränder.
+ *                  Integers und legt dessen Quotient wieder auf den Stack. 
+ *                  Bei Fehlschlag wird der Stack nicht veränder.
  * @retval          Statuscode der Funktion.
  */
 Exception div();
@@ -52,7 +52,7 @@ Exception div();
  */
 Exception display_last(Terminal *terminal);
 /**
- * @brief           Diese Funktion liest die letzten Integers auf dem Stack aus,
+ * @brief          Diese Funktion liest die letzten Integers auf dem Stack aus,
  *                  bis zu maximal 3 und drukt dessen Werte auf ein Terminal.
  * @param *terminal Pointer des Terminal auf dem der Wert ausgegeben wird.
  * @retval          Statuscode der Funktion.
@@ -73,7 +73,6 @@ void clear(Terminal *terminal);
 Exception dupe_last();
 /**
  * @brief           Diese Funktion tauscht den Index der letzten Beiden Integer
- * auf dem Stack und legt die Kopie auf dem Stack ab.
  * @retval          Statuscode der Funktion.
  */
 Exception swap_last2();
