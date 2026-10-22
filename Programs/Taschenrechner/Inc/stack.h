@@ -28,6 +28,7 @@ Exception push(int val);
  */
 Exception pop(int *val);
 /**
+<<<<<<< Updated upstream
  * @brief        Diese Funktion liest ein Integer aus dem Stack.
  * @param index  Index des Integers, welcher zurückgegeben werden soll.
  * @param val    Integer der auf dem Stack gespeichert wird.
@@ -40,6 +41,8 @@ Exception get_element(int index, int *val);
  */
 int get_pointer();
 /**
+=======
+>>>>>>> Stashed changes
  * @brief        Diese Funktion setzt den Stackpointer auf 0.
  * @retval       None
  */

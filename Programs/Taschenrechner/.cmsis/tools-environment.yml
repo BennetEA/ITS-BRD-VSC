@@ -4,6 +4,7 @@ cmsis-tools-environment:
   solution: ../Taschenrechner.csolution.yml
   environment:
     path:
+<<<<<<< Updated upstream
       - c:/Users/TheQu/.vscode/extensions/arm.vscode-cmsis-debugger-1.8.0-win32-x64/tools/pyocd
       - c:/Users/TheQu/.vscode/extensions/arm.cmsis-csolution-1.72.0-win32-x64/tools/cmsis-toolbox/bin
       - c:/Users/TheQu/.vcpkg/artifacts/2139c4c6/tools.kitware.cmake/3.28.4/bin
@@ -13,6 +14,17 @@ cmsis-tools-environment:
       - c:/Users/TheQu/.vcpkg/artifacts/2139c4c6/compilers.arm.llvm.embedded/17.0.1/bin
       - c:/Users/TheQu/.vcpkg/artifacts/2139c4c6/debuggers.arm.armdbg/6.10.1/bin
       - c:/Users/TheQu/.vscode/extensions/arm.vscode-cmsis-debugger-1.8.0-win32-x64/tools/gdb/bin
+=======
+      - /home/bennet/.vscode-oss/extensions/arm.vscode-cmsis-debugger-1.10.0-linux-x64/tools/pyocd
+      - /home/bennet/.vscode-oss/extensions/arm.cmsis-csolution-1.72.0-linux-x64/tools/cmsis-toolbox/bin
+      - /home/bennet/.vcpkg/artifacts/2139c4c6/tools.kitware.cmake/3.28.4/bin
+      - /home/bennet/.vcpkg/artifacts/2139c4c6/tools.ninja.build.ninja/1.13.2
+      - /home/bennet/.vcpkg/artifacts/2139c4c6/compilers.arm.armclang/6.24.0/bin
+      - /home/bennet/.vcpkg/artifacts/2139c4c6/compilers.arm.arm.none.eabi.gcc/13.3.1/bin
+      - /home/bennet/.vcpkg/artifacts/2139c4c6/compilers.arm.llvm.embedded/17.0.1/bin
+      - /home/bennet/.vcpkg/artifacts/2139c4c6/debuggers.arm.armdbg/6.9.0/bin
+      - /home/bennet/.vscode-oss/extensions/arm.vscode-cmsis-debugger-1.10.0-linux-x64/tools/gdb/bin
+>>>>>>> Stashed changes
     variables:
       AC6_TOOLCHAIN_6_24_0: c:/Users/TheQu/.vcpkg/artifacts/2139c4c6/compilers.arm.armclang/6.24.0/bin/
       CLANG_TOOLCHAIN_17_0_1: c:/Users/TheQu/.vcpkg/artifacts/2139c4c6/compilers.arm.llvm.embedded/17.0.1/bin/
@@ -23,12 +35,16 @@ cmsis-tools-environment:
       ninja: c:/Users/TheQu/.vcpkg/artifacts/2139c4c6/tools.ninja.build.ninja/1.13.2/ninja.exe
   tools:
     - name: pyOCD
-      version: 0.45.1
+      version: 0.46.0
       origin: built-in
       provider:
         type: vscode-extension
         id: arm.vscode-cmsis-debugger
+<<<<<<< Updated upstream
       directory: c:/Users/TheQu/.vscode/extensions/arm.vscode-cmsis-debugger-1.8.0-win32-x64/tools/pyocd
+=======
+      directory: /home/bennet/.vscode-oss/extensions/arm.vscode-cmsis-debugger-1.10.0-linux-x64/tools/pyocd
+>>>>>>> Stashed changes
       manual: https://pyocd.io/docs/
     - name: CMSIS-Toolbox
       version: 2.15.0
@@ -74,17 +90,29 @@ cmsis-tools-environment:
         id: arm.environment-manager
       directory: c:/Users/TheQu/.vcpkg/artifacts/2139c4c6/compilers.arm.llvm.embedded/17.0.1
     - name: debuggers.arm.armdbg
+<<<<<<< Updated upstream
       version: 6.10.1
+=======
+      version: 6.9.0
+>>>>>>> Stashed changes
       origin: installed
       provider:
         type: vcpkg
         id: arm.environment-manager
+<<<<<<< Updated upstream
       directory: c:/Users/TheQu/.vcpkg/artifacts/2139c4c6/debuggers.arm.armdbg/6.10.1
+=======
+      directory: /home/bennet/.vcpkg/artifacts/2139c4c6/debuggers.arm.armdbg/6.9.0
+>>>>>>> Stashed changes
     - name: Arm GNU GDB
-      version: 15.2.1
+      version: 15.3.1
       origin: built-in
       provider:
         type: vscode-extension
         id: arm.vscode-cmsis-debugger
+<<<<<<< Updated upstream
       directory: c:/Users/TheQu/.vscode/extensions/arm.vscode-cmsis-debugger-1.8.0-win32-x64/tools/gdb/bin
+=======
+      directory: /home/bennet/.vscode-oss/extensions/arm.vscode-cmsis-debugger-1.10.0-linux-x64/tools/gdb/bin
+>>>>>>> Stashed changes
       manual: https://developer.arm.com/Tools%20and%20Software/GNU%20Toolchain

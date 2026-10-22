@@ -33,14 +33,4 @@ Exception pop(int *val) {
    return ERR_OK;
 }
 
-Exception get_element(int index, int *val) {
-   if (index > pointer || index <= 0) {
-      return ERR_INVALID_INDEX;
-   }
-   *val = stack[index];
-   return ERR_OK;
-}
-
-int get_pointer() { return pointer; }
-
 void clear_stack() { pointer = 0; }

@@ -18,63 +18,57 @@
 #include <limits.h>
 #include <stdio.h>
 
-static int a;
-static int x, y, result;
-static int p;
 static char buffer[12];
 
+Exception get2(int *x, int *y) {
+   int e;
+   if (e = pop(x)) {
+      return e;
+   }
+   if (e = pop(y)) {
+      push(*x);
+      return e;
+   }
+   return ERR_OK;
+}
 Exception add(void) {
-   p = get_pointer();
-   if (p < 2) {
+   int x, y, result;
+   if (get2(&x, &y)) {
       return ERR_INSUFFICIENT_ELEMENTS;
    }
-   get_element(p - 1, &x);
-   get_element(p, &y);
    if (__builtin_add_overflow(x, y, &result)) {
       return ERR_OVERFLOW;
    }
-   pop(&y);
-   pop(&x);
    return push(result);
 }
 
 Exception sub(void) {
-   p = get_pointer();
-   if (p < 2) {
+   int x, y, result;
+   if (get2(&x, &y)) {
       return ERR_INSUFFICIENT_ELEMENTS;
    }
-   get_element(p - 1, &x);
-   get_element(p, &y);
    if (__builtin_sub_overflow(x, y, &result)) {
       return ERR_OVERFLOW;
    }
-   pop(&y);
-   pop(&x);
    return push(result);
 }
 
 Exception mul(void) {
-   p = get_pointer();
-   if (p < 2) {
+   int x, y, result;
+   if (get2(&x, &y)) {
       return ERR_INSUFFICIENT_ELEMENTS;
    }
-   get_element(p - 1, &x);
-   get_element(p, &y);
    if (__builtin_mul_overflow(x, y, &result)) {
       return ERR_OVERFLOW;
    }
-   pop(&y);
-   pop(&x);
    return push(result);
 }
 
 Exception div(void) {
-   p = get_pointer();
-   if (p < 2) {
+   int x, y, result;
+   if (get2(&x, &y)) {
       return ERR_INSUFFICIENT_ELEMENTS;
    }
-   get_element(p - 1, &x);
-   get_element(p, &y);
    if (y == 0) {
       return ERR_DIVISION_BY_ZERO;
    }
@@ -82,30 +76,36 @@ Exception div(void) {
       return ERR_OVERFLOW;
    }
    result = x / y;
-   pop(&y);
-   pop(&x);
    return push(result);
 }
 
 Exception display_last(Terminal *terminal) {
-   if (get_pointer() < 1) {
-      return ERR_STACK_EMPTY;
+   int d;
+   int e;
+   if (e = pop(&d)) {
+      return e;
    }
-   get_element(get_pointer(), &a);
-   snprintf(buffer, sizeof(buffer), "%d", a);
+   snprintf(buffer, sizeof(buffer), "%d", d);
+   push(d);
    printTerm(buffer, terminal);
    printTerm("\n", terminal);
    return ERR_OK;
 }
 
 Exception display_last3(Terminal *terminal) {
-   p = get_pointer();
-   if (p < 1) {
+   int x[3];
+   int i;
+   for (i = 0; i < 3; i++) {
+      if (pop(&x[i])) {
+         break;
+      }
+   }
+   if (i == 0) {
       return ERR_STACK_EMPTY;
    }
-   for (int i = (p - 2 < 1) ? 1 : p - 2; i <= p; i++) {
-      get_element(i, &a);
-      snprintf(buffer, sizeof(buffer), "%d", a);
+   for (i = i - 1; i >= 0; i--) {
+      snprintf(buffer, sizeof(buffer), "%d", x[i]);
+      push(x[i]);
       printTerm(buffer, terminal);
       printChar(' ', terminal);
    }
@@ -114,19 +114,17 @@ Exception display_last3(Terminal *terminal) {
 }
 
 Exception dupe_last(void) {
-   if (get_pointer() < 1) {
-      return ERR_STACK_EMPTY;
+   int x;
+   int e;
+   if (e = pop(&x)) {
+      return e;
    }
-   get_element(get_pointer(), &a);
-   return push(a);
+   return push(x);
 }
 
 Exception swap_last2(void) {
-   if (get_pointer() < 2) {
-      return ERR_STACK_EMPTY;
-   }
-   pop(&y);
-   pop(&x);
+   int x, y;
+   get2(&x, &y);
    push(y);
    push(x);
    return ERR_OK;

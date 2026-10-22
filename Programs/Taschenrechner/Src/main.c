@@ -73,6 +73,11 @@ int main(void) {
          printTerm("USELESS_BUTTON\n", &overlay);
          setTextColorTerm(BLACK, &overlay);
          break;
+         if (error) {
+            setTextColorTerm(RED, &overlay);
+            printTerm(exception_to_string(error), &overlay);
+            setTextColorTerm(BLACK, &overlay);
+         }
       }
       if(error) {
             setTextColorTerm(RED, &overlay);
