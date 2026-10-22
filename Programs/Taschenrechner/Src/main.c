@@ -104,14 +104,10 @@ int main(void) {
             setTextColorTerm(BLACK, &overlay);
          }
          break;
-      case ENTER:
-         continue;
-         break;
-      case UNEXPECTED:
-         continue;
-         break;
-      case OVERFLOW:
-         continue;
+      default:
+         setTextColorTerm(RED, &overlay);
+         printTerm("USELESS_BUTTON\n", &overlay);
+         setTextColorTerm(BLACK, &overlay);
          break;
       }
    }

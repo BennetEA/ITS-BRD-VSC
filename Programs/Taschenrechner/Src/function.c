@@ -19,11 +19,12 @@
 #include <stdio.h>
 
 static int a;
+static int x, y, result;
+static int p;
 static char buffer[12];
 
 Exception add(void) {
-   int x, y, result;
-   int p = get_pointer();
+   p = get_pointer();
    if (p < 2) {
       return ERR_INSUFFICIENT_ELEMENTS;
    }
@@ -38,8 +39,7 @@ Exception add(void) {
 }
 
 Exception sub(void) {
-   int x, y, result;
-   int p = get_pointer();
+   p = get_pointer();
    if (p < 2) {
       return ERR_INSUFFICIENT_ELEMENTS;
    }
@@ -54,8 +54,7 @@ Exception sub(void) {
 }
 
 Exception mul(void) {
-   int x, y, result;
-   int p = get_pointer();
+   p = get_pointer();
    if (p < 2) {
       return ERR_INSUFFICIENT_ELEMENTS;
    }
@@ -70,8 +69,7 @@ Exception mul(void) {
 }
 
 Exception div(void) {
-   int x, y, result;
-   int p = get_pointer();
+   p = get_pointer();
    if (p < 2) {
       return ERR_INSUFFICIENT_ELEMENTS;
    }
@@ -101,7 +99,7 @@ Exception display_last(Terminal *terminal) {
 }
 
 Exception display_last3(Terminal *terminal) {
-   int p = get_pointer();
+   p = get_pointer();
    if (p < 1) {
       return ERR_STACK_EMPTY;
    }
@@ -127,7 +125,6 @@ Exception swap_last2(void) {
    if (get_pointer() < 2) {
       return ERR_STACK_EMPTY;
    }
-   int x, y;
    pop(&y);
    pop(&x);
    push(y);
