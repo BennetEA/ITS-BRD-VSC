@@ -41,7 +41,7 @@ int main(void) {
          error = push(token.val);
          break;
       case PLUS:
-         error = add():
+         error = add();
          break;
       case MINUS:
          error = sub();
