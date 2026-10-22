@@ -29,7 +29,7 @@ Exception push(int val);
 Exception pop(int *val);
 /**
  * @brief        Diese Funktion liest ein Integer aus dem Stack.
- * @param index  Index des Itegers, welcher zurückgegeben werden soll.
+ * @param index  Index des Integers, welcher zurückgegeben werden soll.
  * @param val    Integer der auf dem Stack gespeichert wird.
  * @retval       Statuscode der Funktion.
  */

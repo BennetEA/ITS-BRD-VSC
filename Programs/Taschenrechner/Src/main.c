@@ -38,77 +38,46 @@ int main(void) {
       }
       switch (token.tok) {
       case NUMBER:
-         if (error = push(token.val)) {
-            setTextColorTerm(RED, &overlay);
-            printTerm(exception_to_string(error), &overlay);
-            setTextColorTerm(BLACK, &overlay);
-         }
+         error = push(token.val);
          break;
       case PLUS:
-         if (error = add()) {
-            setTextColorTerm(RED, &overlay);
-            printTerm(exception_to_string(error), &overlay);
-            setTextColorTerm(BLACK, &overlay);
-         }
+         error = add():
          break;
       case MINUS:
-         if (error = sub()) {
-            setTextColorTerm(RED, &overlay);
-            printTerm(exception_to_string(error), &overlay);
-            setTextColorTerm(BLACK, &overlay);
-         }
+         error = sub();
          break;
       case MULT:
-         if (error = mul()) {
-            setTextColorTerm(RED, &overlay);
-            printTerm(exception_to_string(error), &overlay);
-            setTextColorTerm(BLACK, &overlay);
-         }
+         error = mul();
          break;
       case DIV:
-         if (error = div()) {
-            setTextColorTerm(RED, &overlay);
-            printTerm(exception_to_string(error), &overlay);
-            setTextColorTerm(BLACK, &overlay);
-         }
+         error = div();
          break;
       case PRT:
-         if (error = display_last(&overlay)) {
-            setTextColorTerm(RED, &overlay);
-            printTerm(exception_to_string(error), &overlay);
-            setTextColorTerm(BLACK, &overlay);
-         }
+         error = display_last(&overlay);
          break;
       case SWAP:
-         if (error = swap_last2()) {
-            setTextColorTerm(RED, &overlay);
-            printTerm(exception_to_string(error), &overlay);
-            setTextColorTerm(BLACK, &overlay);
-         }
+         error = swap_last2();
          break;
       case PRT_ALL:
-         if (error = display_last3(&overlay)) {
-            setTextColorTerm(RED, &overlay);
-            printTerm(exception_to_string(error), &overlay);
-            setTextColorTerm(BLACK, &overlay);
-         }
+         error = display_last3(&overlay);
          break;
       case CLEAR:
          clearTerm(&overlay);
          clear_stack();
          break;
       case DOUBLE:
-         if (error = dupe_last()) {
-            setTextColorTerm(RED, &overlay);
-            printTerm(exception_to_string(error), &overlay);
-            setTextColorTerm(BLACK, &overlay);
-         }
+         error = dupe_last();
          break;
       default:
          setTextColorTerm(RED, &overlay);
          printTerm("USELESS_BUTTON\n", &overlay);
          setTextColorTerm(BLACK, &overlay);
          break;
+      }
+      if(error) {
+            setTextColorTerm(RED, &overlay);
+            printTerm(exception_to_string(error), &overlay);
+            setTextColorTerm(BLACK, &overlay);
       }
    }
 }
