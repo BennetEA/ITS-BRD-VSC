@@ -22,19 +22,19 @@ static char buffer[12];
 
 Exception get2(int *x, int *y) {
    int e;
-   if (e = pop(x)) {
+   if (e = pop(y)) {
       return e;
    }
-   if (e = pop(y)) {
-      push(*x);
+   if (e = pop(x)) {
+      push(*y);
       return e;
    }
    return ERR_OK;
 }
 Exception add(void) {
-   int x, y, result;
-   if (get2(&x, &y)) {
-      return ERR_INSUFFICIENT_ELEMENTS;
+   int e, x, y, result;
+   if (e = get2(&x, &y)) {
+      return e;
    }
    if (__builtin_add_overflow(x, y, &result)) {
       return ERR_OVERFLOW;
@@ -43,9 +43,9 @@ Exception add(void) {
 }
 
 Exception sub(void) {
-   int x, y, result;
-   if (get2(&x, &y)) {
-      return ERR_INSUFFICIENT_ELEMENTS;
+   int e, x, y, result;
+   if e = (get2(&x, &y)) {
+      return e;
    }
    if (__builtin_sub_overflow(x, y, &result)) {
       return ERR_OVERFLOW;
@@ -54,9 +54,9 @@ Exception sub(void) {
 }
 
 Exception mul(void) {
-   int x, y, result;
-   if (get2(&x, &y)) {
-      return ERR_INSUFFICIENT_ELEMENTS;
+   int e, x, y, result;
+   if (e = get2(&x, &y)) {
+      return e;
    }
    if (__builtin_mul_overflow(x, y, &result)) {
       return ERR_OVERFLOW;
@@ -65,9 +65,9 @@ Exception mul(void) {
 }
 
 Exception div(void) {
-   int x, y, result;
-   if (get2(&x, &y)) {
-      return ERR_INSUFFICIENT_ELEMENTS;
+   int e, x, y, result;
+   if (e = get2(&x, &y)) {
+      return e;
    }
    if (y == 0) {
       return ERR_DIVISION_BY_ZERO;
@@ -119,6 +119,7 @@ Exception dupe_last(void) {
    if (e = pop(&x)) {
       return e;
    }
+   push(x);
    return push(x);
 }
 
