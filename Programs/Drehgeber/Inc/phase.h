@@ -4,7 +4,7 @@
 
 typedef struct {
    uint8_t value;
-   uint32_t timestamp;
+   uint32_t time;
 } Phase;
 
 Phase read_phase();

@@ -185,6 +185,9 @@ project:
         - file: Src/test.c
         - file: Src/timer.c
         - file: Src/phase.c
+        - file: Src/calculations.c
+        - file: Src/encoder.c
+        - file: Src/gui.c
 
 
   components:

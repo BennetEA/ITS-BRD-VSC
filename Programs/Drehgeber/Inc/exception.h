@@ -17,6 +17,7 @@ typedef enum {
    ERR_OK = 0,
    ERR_INVALID_LED,
    ERR_INVALID_BUTTON,
+   ERR_PHASE_SKIP,
 } Exception;
 
 /**

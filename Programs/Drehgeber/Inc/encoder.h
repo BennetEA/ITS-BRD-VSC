@@ -3,6 +3,12 @@
 #include "exception.h"
 #include "phase.h"
 
-Exception direction(Phase p1, Phase p2, int *direction);
+typedef struct {
+   int32_t count;
+   uint32_t timestamp;
+} Phase_count;
 
+Exception update_encoder(Phase new_phase);
+Exception init_encoder(Phase phase);
+Phase_count get_phase_count();
 #endif // !ENCODER_U

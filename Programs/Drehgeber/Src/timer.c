@@ -9,7 +9,7 @@ void init_timer() {
    TIM5->ARR = 0xFFFFFFFFU;
    TIM5->EGR |= TIM_EGR_UG;
 
-   TIM5->CNT &= 0;
+   TIM5->CNT = 0;
    TIM5->SR |= ~TIM_SR_UIF;
    TIM5->CR1 |= TIM_CR1_CEN; // timer starten
 }

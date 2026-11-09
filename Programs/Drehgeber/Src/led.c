@@ -1,6 +1,6 @@
+#include "led.h"
 #include "exception.h"
 #include "init.h"
-#include "led.h"
 #include "stm32f4xx_hal.h"
 #include "stm32f4xx_nucleo_144.h"
 #include <stdint.h>
@@ -71,13 +71,5 @@ Exception led_value(int led, int *val) {
           (GPIOD->IDR & (0x01U << (led - GPIOD_START))) >> (led - GPIOD_START);
    }
 
-   return ERR_OK;
-}
-
-Exception button_value(int button, int *val) {
-   if (button < GPIOF_START || button > GPIOF_END) {
-      return ERR_INVALID_BUTTON;
-   }
-   *val = (GPIOF->IDR & (0x01U << button)) >> button;
    return ERR_OK;
 }
