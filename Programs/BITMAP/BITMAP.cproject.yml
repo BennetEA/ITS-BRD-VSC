@@ -224,6 +224,8 @@ project:
         - file: Src/usbd_cdc_if.c
         - file: Src/usbd_conf.c
         - file: Src/usbd_desc.c
+        - file: Src/color_palett.c 
+        - file: Src/test.c
 
 
   components:
