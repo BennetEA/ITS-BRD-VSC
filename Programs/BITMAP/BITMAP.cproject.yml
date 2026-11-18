@@ -226,6 +226,7 @@ project:
         - file: Src/usbd_desc.c
         - file: Src/color_palett.c 
         - file: Src/test.c
+        - file: Src/_timer.c
 
 
   components:

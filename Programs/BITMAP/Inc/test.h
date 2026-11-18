@@ -1,5 +1,5 @@
 #ifndef TEST_H
 #define TEST_H
 
-void color_palett_test();
+void test_main();
 #endif // !TEST_H

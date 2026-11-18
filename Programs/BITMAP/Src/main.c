@@ -37,28 +37,7 @@
  * @param  None
  * @retval None
  */
-int main(void) {
-   initITSboard();      // Initialisierung des ITS Boards
-   switch_to_168_MHz(); // Zur Unterstützung von USB wird die Taktrate auf ein
-                        // vielfaches von 42 MHz gesetzt
-   initTimer();
-   GUI_init(DEFAULT_BRIGHTNESS); // Initialisierung des LCD Boards mit Touch
-   TP_Init(false);               // Initialisierung des LCD Boards mit Touch
-   if (!checkVersionFlashFonts()) {
-      Error_Handler();
-   }
-
-   transport_t transport =
-       ask_transport(); // Anwender waehlt am LCD: S7 (PF7) = USB-CDC, S6 (PF6)
-                        // = UART-via-USB
-   init_input(transport); // Verbindung aufgebaut (Handshake H/R/G)
-
-   /* Hilfetext einmalig anzeigen und auf S5 warten, sobald die Verbindung
-      steht -- erst dann das erste Bild einlesen. */
-   show_s5_hint();
-   wait_for_s_i(
-       BUTTON_S5); // erst S5 (PF5) startet die Uebertragung des ersten Bilds
-
-   color_palett_test();
+int main(void) { 
+  test_main();
 }
 // EOF

@@ -2,11 +2,11 @@
 #define COLOR_PALETT_H
 
 #include "BMP_types.h"
+#include "exception.h"
 #include <stdint.h>
 
-RGBQUAD nxt_color();
-int read_bmp_palett(uint8_t count);
-int bmp_to_rgb565_palett(RGBQUAD *palett, uint8_t size);
-RGBTRIPLE *get_color(uint8_t index);
+RGBTRIPLE nxt_color();
+Error read_colors(uint8_t count);
+RGBTRIPLE *get_pallet();
 
 #endif /* COLOR_PALETT_H */
