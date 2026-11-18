@@ -11,10 +11,12 @@
 #define GPIOE_END 23
 #define GPIOF_START 0
 #define GPIOF_END 7
+#define GPIO_RESET_SHIFT 16U
+#define GPIOD_RESET_OFFSET 8U
 
 void display_int(int8_t val) {
-   GPIOD->BSRR = val;
-   GPIOD->BSRR = ~val << 16;
+   GPIOD->BSRR = (uint32_t)(int32_t)val;
+   GPIOD->BSRR = ~(uint32_t)(int32_t)val << GPIO_RESET_SHIFT;
 }
 Exception toggle_led(int led) {
    if (led < GPIOD_START || led > GPIOE_END) {
@@ -22,8 +24,8 @@ Exception toggle_led(int led) {
    }
 
    int val;
-   int err;
-   if ((err = led_value(led, &val))) {
+   Exception err = led_value(led, &val);
+   if (err != ERR_OK) {
       return err;
    }
    if (val) {
@@ -37,9 +39,9 @@ Exception set_led(int led) {
       return ERR_INVALID_LED;
    }
    if (led > GPIOD_END) {
-      GPIOE->BSRR = 0x01U << (led - GPIOE_START);
+      GPIOE->BSRR = 0x01U << ((uint32_t)(led - GPIOE_START));
    } else {
-      GPIOD->BSRR = 0x01U << (led - GPIOD_START);
+      GPIOD->BSRR = 0x01U << ((uint32_t)(led - GPIOD_START));
    }
 
    return ERR_OK;
@@ -51,9 +53,9 @@ Exception unset_led(int led) {
    }
 
    if (led > GPIOD_END) {
-      GPIOE->BSRR = 0x01U << led;
+      GPIOE->BSRR = 0x01U << (uint32_t)led;
    } else {
-      GPIOD->BSRR = 0x01U << (led + 8);
+      GPIOD->BSRR = 0x01U << ((uint32_t)led + GPIOD_RESET_OFFSET);
    }
 
    return ERR_OK;
@@ -64,11 +66,11 @@ Exception led_value(int led, int *val) {
       return ERR_INVALID_LED;
    }
    if (led > GPIOD_END) {
-      *val =
-          (GPIOE->IDR & (0x01U << (led - GPIOE_START))) >> (led - GPIOE_START);
+      *val = (int)((GPIOE->IDR & (0x01U << ((uint32_t)(led - GPIOE_START)))) >>
+                   ((uint32_t)(led - GPIOE_START)));
    } else {
-      *val =
-          (GPIOD->IDR & (0x01U << (led - GPIOD_START))) >> (led - GPIOD_START);
+      *val = (int)((GPIOD->IDR & (0x01U << ((uint32_t)(led - GPIOD_START)))) >>
+                   ((uint32_t)(led - GPIOD_START)));
    }
 
    return ERR_OK;

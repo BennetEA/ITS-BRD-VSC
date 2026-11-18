@@ -20,46 +20,52 @@
 #include "test.h"
 #include "timer.h"
 
+#define ERROR_LED 21
+#define RESET_BUTTON_MASK (1U << 6U)
+#define GPIOE_LED_MASK 255U
+#define GPIO_RESET_SHIFT 16U
+#define DISPLAY_UPDATE_INTERVAL_MS 300
+
 int main(void) {
    initITSboard();               // Initialisierung des ITS Boards
    GUI_init(DEFAULT_BRIGHTNESS); // Initialisierung des LCD Boards mit Touch
 
    init_overlay();
 
-   double speed = 0;
-   double angel = 0;
+   Angular_values values = {.speed = 0, .angle = 0};
 
    double old_time = 0;
-   double _time;
+   double current_time;
 
    Exception err;
-   update_display_values(speed, angel);
+   update_display_values(values);
 
    init_timer();
    init_encoder(read_phase());
    while (1) {
       Phase phase = read_phase();
-      if (err = update_encoder(phase)) {
-         set_led(21);
+      err = update_encoder(phase);
+      if (err != ERR_OK) {
+         set_led(ERROR_LED);
       }
       do {
-         if (~GPIOF->IDR & 0b1 << 6) {
+         if (~GPIOF->IDR & RESET_BUTTON_MASK) {
             reset_timer();
             init_encoder(read_phase());
-            calculate(&speed, &angel);
-            update_display_values(speed, angel);
-            GPIOE->BSRR = 255 << 16;
+            calculate(&values);
+            update_display_values(values);
+            GPIOE->BSRR = GPIOE_LED_MASK << GPIO_RESET_SHIFT;
             err = ERR_OK;
             old_time = 0;
          }
       } while (err);
 
-      display_int(get_phase_count().count);
-      _time = time(MS);
-      if (_time - old_time >= 300) {
-         calculate(&speed, &angel);
-         update_display_values(speed, angel);
-         old_time = _time;
+      display_int((int8_t)get_phase_count().count);
+      current_time = time(MS);
+      if (current_time - old_time >= DISPLAY_UPDATE_INTERVAL_MS) {
+         calculate(&values);
+         update_display_values(values);
+         old_time = current_time;
       }
       update_char();
    }

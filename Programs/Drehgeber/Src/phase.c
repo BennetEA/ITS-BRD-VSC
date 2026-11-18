@@ -3,7 +3,7 @@
 Phase read_phase() {
    Phase phase;
 
-   phase.value = ~GPIOF->IDR & 0b11;
+   phase.value = ~GPIOF->IDR & 0b11U;
    phase.time = TIM5->CNT;
 
    return phase;
