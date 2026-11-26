@@ -3,8 +3,8 @@
 #include <stdint.h>
 
 typedef struct {
-   uint8_t value;
-   uint32_t time;
+   uint8_t value;    // Aktueller Zustand der beiden Drehgebersignale
+   uint32_t time;    // Zeitpunkt der Messung
 } Phase;
 
 Phase read_phase();

@@ -6,7 +6,7 @@
 #define MICROSECONDS_PER_SECOND 1000000.0
 #define MICROSECONDS_PER_MINUTE 60000000.0
 
-void init_timer() {
+void init_timer() {          
    RCC->APB1ENR |= RCC_APB1ENR_TIM5EN; // reset and clock control
    TIM5->CR1 &= ~TIM_CR1_CEN;          // timer stoppen
 
@@ -16,14 +16,14 @@ void init_timer() {
 
    TIM5->CNT = 0;
    TIM5->SR |= ~TIM_SR_UIF;
-   TIM5->CR1 |= TIM_CR1_CEN; // timer starten
+   TIM5->CR1 |= TIM_CR1_CEN;           // timer starten
 }
 
-void reset_timer() { TIM5->CNT &= 0U; }
+void reset_timer() { TIM5->CNT &= 0U; } // Setzt den Timer auf 0
 
 double time(time_unit unit) {
    uint32_t t = TIM5->CNT;
-   switch (unit) {
+   switch (unit) {                        // Gibt die Zeit in der gewünschten einheit
    case US:
       return (double)t;
    case MS:

@@ -4,8 +4,8 @@
 #include "phase.h"
 
 typedef struct {
-   int32_t count;
-   uint32_t timestamp;
+   int32_t count;       // Wie viele Drehschritte bisher gezählt wurden
+   uint32_t timestamp;  // Der Zeitpunkt der letzten Auswertung.
 } Phase_count;
 
 Exception update_encoder(Phase new_phase);

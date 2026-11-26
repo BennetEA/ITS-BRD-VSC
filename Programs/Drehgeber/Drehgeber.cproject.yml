@@ -166,7 +166,6 @@ project:
         - file: ../../ITS_BRD_LIB/Src/terminal.c
         - file: ../../ITS_BRD_LIB/Src/keypad.c
         - file: ../../ITS_BRD_LIB/Src/delay.c
-        - file: ../../ITS_BRD_LIB/Src/timer.c
         - file: ../../ITS_BRD_LIB/Src/USART_STM32F4xx.c
         - file: ../../ITS_BRD_LIB/Src/stdinout_USART.c
 

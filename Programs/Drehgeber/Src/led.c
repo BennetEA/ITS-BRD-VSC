@@ -34,11 +34,11 @@ Exception toggle_led(int led) {
    return set_led(led);
 }
 
-Exception set_led(int led) {
+Exception set_led(int led) {                                      // Prüfen ob LED gültig
    if (led < GPIOD_START || led > GPIOE_END) {
       return ERR_INVALID_LED;
    }
-   if (led > GPIOD_END) {
+   if (led > GPIOD_END) {                                         // Check welches register gebraucht wird
       GPIOE->BSRR = 0x01U << ((uint32_t)(led - GPIOE_START));
    } else {
       GPIOD->BSRR = 0x01U << ((uint32_t)(led - GPIOD_START));

@@ -3,8 +3,8 @@
 Phase read_phase() {
    Phase phase;
 
-   phase.value = ~GPIOF->IDR & 0b11U;
-   phase.time = TIM5->CNT;
+   phase.value = ~GPIOF->IDR & 0b11U;  //WICHTIG
+   phase.time = TIM5->CNT;             //Zählerstand auslesen (?CNT?)          
 
    return phase;
 }

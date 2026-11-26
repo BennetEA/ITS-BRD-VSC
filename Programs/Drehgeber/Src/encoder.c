@@ -13,34 +13,34 @@ Exception update_encoder(Phase new_phase) {
    uint32_t b = new_phase.value;
    uint32_t c = a ^ b;
 
-   phase_count.timestamp = new_phase.time;
+   phase_count.timestamp = new_phase.time;   // Alte zustände überschreiben
    old_phase = new_phase;
 
-   if (c == 0b11) {
+   if (c == 0b11) {              // Beide Bits haben sich verändert
       return ERR_PHASE_SKIP;
    }
 
-   if (c == 0b00) {
+   if (c == 0b00) {              // Kein Bit hat sich verändert
       return ERR_OK;
    }
 
    if (((a & 1U) ^ ((b >> 1U) & 1U)) == 0) {
-      phase_count.count += 1;
+      phase_count.count += 1;                   // Wenn Ergebnis 0, Zähler erhöhen
       set_led(FORWARD_LED);
       unset_led(REVERSE_LED);
    } else {
-      phase_count.count -= 1;
+      phase_count.count -= 1;                   // Wenn Ergebnis 1, Zähler verringern
       set_led(REVERSE_LED);
       unset_led(FORWARD_LED);
    }
    return ERR_OK;
 }
 
-Exception init_encoder(Phase phase) {
+Exception init_encoder(Phase phase) {           // setzt den Zähler zurück
    phase_count.count = 0;
    phase_count.timestamp = 0;
 
-   old_phase = phase;
+   old_phase = phase;                           // Aktueller zustand = neuer Ausganszustand
    return ERR_OK;
 }
 Phase_count get_phase_count() { return phase_count; }

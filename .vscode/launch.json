@@ -5,8 +5,8 @@
             "name": "STLink@pyOCD (launch)",
             "type": "gdbtarget",
             "request": "launch",
-            "cwd": "${workspaceFolder}/Programs/Taschenrechner",
-            "program": "out/Taschenrechner/ITSboard/Debug/Taschenrechner.axf",
+            "cwd": "${workspaceFolder}/Programs/Drehgeber",
+            "program": "out/Drehgeber/ITSboard/Debug/Drehgeber.axf",
             "gdb": "arm-none-eabi-gdb",
             "auxiliaryGdb": true,
             "preLaunchTask": "CMSIS Load",
@@ -33,7 +33,8 @@
                     "--log",
                     "*.cbuild_run,*server=info"
                 ],
-                "port": "3333"
+                "port": "3333",
+                "serverDisconnectTimeout": 3000
             },
             "cmsis": {
                 "cbuildRunFile": "${command:cmsis-csolution.getCbuildRunFile}",
@@ -44,8 +45,8 @@
             "name": "STLink@pyOCD (attach)",
             "type": "gdbtarget",
             "request": "attach",
-            "cwd": "${workspaceFolder}/Programs/Taschenrechner",
-            "program": "out/Taschenrechner/ITSboard/Debug/Taschenrechner.axf",
+            "cwd": "${workspaceFolder}/Programs/Drehgeber",
+            "program": "out/Drehgeber/ITSboard/Debug/Drehgeber.axf",
             "gdb": "arm-none-eabi-gdb",
             "auxiliaryGdb": true,
             "initCommands": [

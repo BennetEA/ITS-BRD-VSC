@@ -14,10 +14,10 @@
 #define EXCEPTION_U
 
 typedef enum {
-   ERR_OK = 0,
-   ERR_INVALID_LED,
-   ERR_INVALID_BUTTON,
-   ERR_PHASE_SKIP,
+   ERR_OK = 0,                // 0
+   ERR_INVALID_LED,           // 1
+   ERR_INVALID_BUTTON,        // 2
+   ERR_PHASE_SKIP,            // 3
 } Exception;
 
 /**
